@@ -3,6 +3,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
+import java.util.Optional;
 
 public class Database {
     private static final String host = "jdbc:mysql://localhost:3306/practic_apr";
