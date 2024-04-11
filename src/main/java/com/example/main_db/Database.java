@@ -36,8 +36,7 @@ public class Database {
             System.out.println("Подключено к базе данных!");
 
         } catch (SQLException e) {
-            System.out.println("Невозможно подключиться к базе данных!");
-
+            System.out.println(" Невозможно подключиться к базе данных!");
             throw new RuntimeException(e);
         }
     }

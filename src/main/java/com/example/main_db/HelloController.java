@@ -63,45 +63,53 @@ public class HelloController implements Initializable {
     public CheckBox checkConnectionCheckBox;
     Timer timerConnection = new Timer();
     public void checkConnection() {
-        TimerTask checkConnectTimer =  new TimerTask() {
-            @Override
-            public void run() {
-                try {
-                    if (!Database.getConnect().isValid(1)) {
-                        Database.connected();
-                        connectionImage.setVisible(true);
-                        connectMsg.setVisible(false);
+        if (checkConnectionCheckBox.isSelected()) {
+            timerConnection = new Timer();
+            TimerTask checkConnectTimer =  new TimerTask() {
+                @Override
+                public void run() {
+                    try {
+                        if (!Database.getConnect().isValid(1)) {
+                            Database.connected();
+                            connectionImage.setVisible(true);
+                            connectMsg.setVisible(false);
 
-                        usersButton.setDisable(false);
-                        femaleUserButton.setDisable(false);
-                        maleUsersButton.setDisable(false);
-                        addUserButton.setDisable(false);
-                        deleteButton.setDisable(false);
-                        editFioButton.setDisable(false);
-                        inputLogin.setDisable(false);
-                        inputPassword.setDisable(false);
-                        inputFio.setDisable(false);
-                        inputNewFio.setDisable(false);
+                            usersButton.setDisable(false);
+                            femaleUserButton.setDisable(false);
+                            maleUsersButton.setDisable(false);
+                            addUserButton.setDisable(false);
+                            deleteButton.setDisable(false);
+                            editFioButton.setDisable(false);
+                            inputLogin.setDisable(false);
+                            inputPassword.setDisable(false);
+                            inputFio.setDisable(false);
+                            inputNewFio.setDisable(false);
+                        }
+                    } catch (Throwable e) {
+                      //  System.out.println(e.getMessage());
+                        connectionImage.setVisible(false);
+                        connectMsg.setVisible(true);
+
+                        usersButton.setDisable(true);
+                        femaleUserButton.setDisable(true);
+                        maleUsersButton.setDisable(true);
+                        addUserButton.setDisable(true);
+                        deleteButton.setDisable(true);
+                        editFioButton.setDisable(true);
+                        inputLogin.setDisable(true);
+                        inputPassword.setDisable(true);
+                        inputFio.setDisable(true);
+                        inputNewFio.setDisable(true);
                     }
-                } catch (Throwable e) {
-                    System.out.println(e.getMessage());
-                    connectionImage.setVisible(false);
-                    connectMsg.setVisible(true);
-
-                    usersButton.setDisable(true);
-                    femaleUserButton.setDisable(true);
-                    maleUsersButton.setDisable(true);
-                    addUserButton.setDisable(true);
-                    deleteButton.setDisable(true);
-                    editFioButton.setDisable(true);
-                    inputLogin.setDisable(true);
-                    inputPassword.setDisable(true);
-                    inputFio.setDisable(true);
-                    inputNewFio.setDisable(true);
                 }
-            }
-        };
-        timerConnection.schedule(checkConnectTimer, 2000, 15000);
+            };
+            timerConnection.schedule(checkConnectTimer, 2000, 5000);
+        } else {
+            timerConnection.cancel();
+            System.out.println("Таймер остановлен!");
+        }
+
+
     }
     private void setRulesTextField() {
         inputLogin.textProperty().addListener((observable, oldValue, newValue) -> {
