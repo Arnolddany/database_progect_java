@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefHeight="604.0" prefWidth="678.0" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.main_db.HelloController">
+  <padding>
+    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+  </padding>
+   <children>
+      <Button fx:id="checkConnectionButton" mnemonicParsing="false" onAction="#checkConnection" text="Проверить подключение" />
+      <ImageView fx:id="connectionImage" fitHeight="68.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../icon.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="connectMsg" text="Подключение с базой данных разорвано!" visible="false">
+         <font>
+            <Font name="System Bold" size="28.0" />
+         </font>
+      </Label>
+      <TabPane prefHeight="390.0" prefWidth="682.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Просмотр">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="310.0" prefWidth="638.0">
+                     <children>
+                        <Button fx:id="usersButton" layoutX="219.0" layoutY="250.0" mnemonicParsing="false" onAction="#viewAllUsers" text="Получить всех пользователей" />
+                        <TableView fx:id="usersTable" layoutX="117.0" layoutY="41.0" prefHeight="200.0" prefWidth="404.0">
+                          <columns>
+                            <TableColumn fx:id="idColumn" prefWidth="34.39996337890625" text="id" />
+                            <TableColumn fx:id="loginColumn" prefWidth="116.00005722045898" text="login" />
+                              <TableColumn fx:id="fioColumn" prefWidth="239.2000030517578" text="fio" />
+                          </columns>
+                        </TableView>
+                        <Label fx:id="usersLabel" layoutX="280.0" layoutY="5.0" text="Пользователи" />
+                        <Button fx:id="femaleUserButton" layoutX="199.0" layoutY="286.0" mnemonicParsing="false" onAction="#viewFemaleUsers" text="Получить пользователей женского пола" />
+                        <Button fx:id="maleUsersButton" layoutX="199.0" layoutY="322.0" mnemonicParsing="false" onAction="#viewMaleUsers" text="Получить пользователей мужского пола" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Добавление">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextField fx:id="inputLogin" layoutX="292.0" layoutY="43.0" />
+                        <TextField fx:id="inputFio" layoutX="292.0" layoutY="134.0" />
+                        <Label layoutX="195.0" layoutY="47.0" text="Введите логин" />
+                        <Label layoutX="195.0" layoutY="95.0" text="Введите пароль" />
+                        <PasswordField fx:id="inputPassword" layoutX="292.0" layoutY="91.0" />
+                        <Label layoutX="195.0" layoutY="138.0" text="Введите ФИО" />
+                        <ComboBox fx:id="comboSex" layoutX="292.0" layoutY="178.0" prefWidth="150.0" />
+                        <Label layoutX="195.0" layoutY="182.0" text="Выберите пол" />
+                        <Button fx:id="addUserButton" layoutX="245.0" layoutY="236.0" mnemonicParsing="false" onAction="#addUser" text="Добавить пользователя" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="Удаление">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ComboBox fx:id="comboIdDelete" layoutX="323.0" layoutY="43.0" prefWidth="150.0" />
+                        <Label layoutX="164.0" layoutY="47.0" text="Выберите ID пользователя" />
+                        <Button fx:id="deleteButton" layoutX="250.0" layoutY="93.0" mnemonicParsing="false" onAction="#deleteUser" text="Удалить пользователя" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Редактирование">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ComboBox fx:id="comboIdEdit" layoutX="323.0" layoutY="50.0" prefWidth="150.0" />
+                        <Label layoutX="163.0" layoutY="54.0" text="Выберите ID пользователя" />
+                        <Button fx:id="editFioButton" layoutX="234.0" layoutY="155.0" mnemonicParsing="false" onAction="#updateFioUser" text="Изменить ФИО пользователя" />
+                        <TextField fx:id="inputNewFio" layoutX="323.0" layoutY="97.0" />
+                        <Label layoutX="120.0" layoutY="101.0" text="Введите новое ФИО пользователя" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</VBox>
