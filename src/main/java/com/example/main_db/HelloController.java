@@ -9,6 +9,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -57,10 +59,13 @@ public class HelloController implements Initializable {
     public ImageView connectionImage;
     @FXML
     public Label connectMsg;
-   // @FXML
-  //  public Button checkConnectionButton;
     @FXML
     public CheckBox checkConnectionCheckBox;
+    public Tab deleteFrame;
+    public TextField inputLoginAuthorization;
+    public TextField inputPasswordAuthorization;
+    public Button loginButton;
+
     Timer timerConnection = new Timer();
     public void checkConnection() {
         if (checkConnectionCheckBox.isSelected()) {
@@ -69,7 +74,7 @@ public class HelloController implements Initializable {
                 @Override
                 public void run() {
                     try {
-                        if (!Database.getConnect().isValid(1)) {
+                        if (Database.getConnect() == null) {
                             Database.connected();
                             connectionImage.setVisible(true);
                             connectMsg.setVisible(false);
@@ -84,11 +89,54 @@ public class HelloController implements Initializable {
                             inputPassword.setDisable(false);
                             inputFio.setDisable(false);
                             inputNewFio.setDisable(false);
+
+                            comboIdDelete.setDisable(false);
+                            comboIdEdit.setDisable(false);
+
+                            comboIdDelete.getItems().clear();
+                            comboIdEdit.getItems().clear();
+                            usersTable.getItems().clear();
+
+                            setRulesTextField();
+                            setColumns();
+
+                        } else {
+                            if (!Database.getConnect().isValid(1)) {
+                                System.out.println("Пытаюсь переподключиться!");
+                                Database.connected();
+                                connectionImage.setVisible(true);
+                                connectMsg.setVisible(false);
+
+                                usersButton.setDisable(false);
+                                femaleUserButton.setDisable(false);
+                                maleUsersButton.setDisable(false);
+                                addUserButton.setDisable(false);
+                                deleteButton.setDisable(false);
+                                editFioButton.setDisable(false);
+                                inputLogin.setDisable(false);
+                                inputPassword.setDisable(false);
+                                inputFio.setDisable(false);
+                                inputNewFio.setDisable(false);
+
+                                comboIdDelete.setDisable(false);
+                                comboIdEdit.setDisable(false);
+
+                                comboIdDelete.getItems().clear();
+                                comboIdEdit.getItems().clear();
+                                usersTable.getItems().clear();
+
+                                setRulesTextField();
+                                setColumns();
+                                filComboBox();
+                            }
                         }
                     } catch (Throwable e) {
-                      //  System.out.println(e.getMessage());
+                        System.out.println(e.getMessage());
                         connectionImage.setVisible(false);
                         connectMsg.setVisible(true);
+
+                        comboIdDelete.setDisable(true);
+                        comboIdEdit.setDisable(true);
 
                         usersButton.setDisable(true);
                         femaleUserButton.setDisable(true);
@@ -140,6 +188,17 @@ public class HelloController implements Initializable {
                 inputNewFio.setText(newValue.replaceAll("[^\\sа-яА-Я]", ""));
             }
         });
+    }
+    @FXML
+    private void filComboOnFrame() {
+        if (deleteFrame.isSelected()) {
+            if (Database.getConnect() != null) {
+                comboIdDelete.getItems().clear();
+                comboIdEdit.getItems().clear();
+                usersTable.getItems().clear();
+                filComboBox();
+            }
+        }
     }
     private void filComboBox() {
         comboSex.getItems().setAll(sex);
@@ -230,9 +289,35 @@ public class HelloController implements Initializable {
         assert usersLabel != null : "fx:id=\"usersLabel\" was not injected: check your FXML file 'hello-view.fxml'.";
         assert usersTable != null : "fx:id=\"usersTable\" was not injected: check your FXML file 'hello-view.fxml'.";
 
-        setRulesTextField();
-        setColumns();
-        filComboBox();
+        try {
+            Database.connected();
+        } catch (Throwable ignored) {}
+
+        try {
+            setRulesTextField();
+            setColumns();
+            filComboBox();
+        } catch (Throwable e) {
+            connectionImage.setVisible(false);
+            connectMsg.setVisible(true);
+            e.getMessage();
+
+            comboIdDelete.setDisable(true);
+            comboIdEdit.setDisable(true);
+
+            usersButton.setDisable(true);
+            femaleUserButton.setDisable(true);
+            maleUsersButton.setDisable(true);
+            addUserButton.setDisable(true);
+            deleteButton.setDisable(true);
+            editFioButton.setDisable(true);
+            inputLogin.setDisable(true);
+            inputPassword.setDisable(true);
+            inputFio.setDisable(true);
+            inputNewFio.setDisable(true);
+
+        }
+
 
 //            Database.getTable().forEach(user -> table.appendText(user.toString()));
     }

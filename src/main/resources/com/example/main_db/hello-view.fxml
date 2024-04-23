@@ -28,7 +28,7 @@
             <Image url="@../../../../../../../icon.png" />
          </image>
       </ImageView>
-      <Label fx:id="connectMsg" text="Подключение с базой данных разорвано!" visible="false">
+      <Label fx:id="connectMsg" prefHeight="0.0" prefWidth="580.0" text="Подключение с базой данных разорвано!" visible="false">
          <font>
             <Font name="System Bold" size="28.0" />
          </font>
@@ -71,7 +71,7 @@
                   </AnchorPane>
             </content>
           </Tab>
-            <Tab text="Удаление">
+            <Tab fx:id="deleteFrame" onSelectionChanged="#filComboOnFrame" text="Удаление">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>

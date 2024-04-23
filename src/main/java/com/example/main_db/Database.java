@@ -1,9 +1,9 @@
 package com.example.main_db;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
-import java.util.Optional;
 
 public class Database {
     private static final String host = "jdbc:mysql://localhost:3306/practic_apr";
@@ -15,24 +15,23 @@ public class Database {
         return connect;
     }
 
-    static {
-        try {
-            connect = DriverManager.getConnection(host, user, password);
-            // TODO log and indicate
-            System.out.println(connect.isValid(1));
-            System.out.println("Подключено к базе данных!");
-
-        } catch (SQLException e) {
-            System.out.println("Невозможно подключиться к базе данных!");
-
-            throw new RuntimeException(e);
-        }
-    }
+//    static {
+//        try {
+//            connect = DriverManager.getConnection(host, user, password);
+//            // TODO log and indicate
+//            System.out.println(connect.isValid(1));
+//            System.out.println("Подключено к базе данных!");
+//
+//        } catch (SQLException e) {
+//            System.out.println("Невозможно подключиться к базе данных!");
+//
+//            throw new RuntimeException(e);
+//        }
+//    }
     public static void connected() {
         try {
             connect = DriverManager.getConnection(host, user, password);
             // TODO log and indicate
-            System.out.println(connect.isValid(1));
             System.out.println("Подключено к базе данных!");
 
         } catch (SQLException e) {
