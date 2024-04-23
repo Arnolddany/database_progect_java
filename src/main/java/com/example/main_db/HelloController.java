@@ -1,5 +1,6 @@
 package com.example.main_db;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -99,6 +100,7 @@ public class HelloController implements Initializable {
 
                             setRulesTextField();
                             setColumns();
+                            Platform.runLater(() -> filComboBox());
 
                         } else {
                             if (!Database.getConnect().isValid(1)) {
@@ -127,7 +129,7 @@ public class HelloController implements Initializable {
 
                                 setRulesTextField();
                                 setColumns();
-                                filComboBox();
+                                Platform.runLater(() -> filComboBox());
                             }
                         }
                     } catch (Throwable e) {
@@ -227,6 +229,7 @@ public class HelloController implements Initializable {
         if (!usersTable.getItems().isEmpty()) {
             usersTable.getItems().clear();
         }
+
         setColumns();
         usersTable.setItems(Database.getFemaleUsers());
     }
